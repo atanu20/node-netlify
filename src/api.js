@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 router.get('/', (req, res) => {
-  res.send('hii');
+  res.send('Welcome to node netlify');
 });
 router.post('/add', async (req, res) => {
   const usedet = new userDetailsTable({
