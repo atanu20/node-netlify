@@ -21,17 +21,17 @@ router.post('/add', async (req, res) => {
   });
   try {
     const resu = await usedet.save();
-    res.send(resu);
+    res.send({ status: true, data: resu });
   } catch (err) {
-    console.log(err);
+    res.send({ status: false, msg: 'something wrong' });
   }
 });
 router.get('/getdata', async (req, res) => {
   userDetailsTable.find({}, (err, result) => {
     if (err) {
-      res.json({ status: false, msg: 'something wrong' });
+      res.send({ status: false, msg: 'something wrong' });
     } else {
-      res.send(result);
+      res.send({ status: true, data: result });
     }
   });
 });
@@ -39,9 +39,9 @@ router.get('/getdata/:id', async (req, res) => {
   const id = req.params.id;
   userDetailsTable.findById({ _id: id }, (err, result) => {
     if (err) {
-      res.json({ status: false, msg: 'something wrong' });
+      res.send({ status: false, msg: 'something wrong' });
     } else {
-      res.send(result);
+      res.send({ status: true, data: result });
     }
   });
 });
@@ -56,9 +56,9 @@ router.post('/postdata/:id', async (req, res) => {
     },
     (err, result) => {
       if (err) {
-        res.json({ status: false, msg: 'something wrong' });
+        res.send({ status: false, msg: 'something wrong' });
       } else {
-        res.send(result);
+        res.send({ status: true, data: result });
       }
     }
   );
@@ -68,9 +68,9 @@ router.delete('/deletedata/:id', async (req, res) => {
   const id = req.params.id;
   userDetailsTable.findByIdAndRemove({ _id: id }, (err, result) => {
     if (err) {
-      res.json({ status: false, msg: 'something wrong' });
+      res.send({ status: false, msg: 'something wrong' });
     } else {
-      res.send({ msg: 'data deleted' });
+      res.send({ status: true, msg: 'data deleted' });
     }
   });
 });
